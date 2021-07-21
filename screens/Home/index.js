@@ -11,6 +11,9 @@ import {
 import { dummyData, COLORS, SIZES, icons, images } from "../../constants";
 import { styles } from "./styles";
 
+// COMPONENTS
+import { PriceAlert } from "../../components";
+
 const Home = ({ navigation }) => {
   const [trending, setTrending] = useState(dummyData.trendingCurrencies);
 
@@ -100,9 +103,16 @@ const Home = ({ navigation }) => {
     );
   }
 
+  function renderAlert() {
+    return <PriceAlert />;
+  }
+
   return (
     <ScrollView>
-      <View style={styles.mainContainer}>{renderHeader()}</View>
+      <View style={styles.mainContainer}>
+        {renderHeader()}
+        {renderAlert()}
+      </View>
     </ScrollView>
   );
 };

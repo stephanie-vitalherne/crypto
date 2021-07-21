@@ -1,5 +1,3 @@
-import Home from "./Home";
-import CryptoDetail from "./CryptoDetail";
-import Transaction from "./Transaction";
-
-export { Home, CryptoDetail, Transaction };
+export { default as Home } from "./Home";
+export { default as CryptoDetail } from "./CryptoDetail";
+export { default as Transaction } from "./Transaction";

@@ -1,3 +1,1 @@
-import VictoryCustomTheme from "./VictoryCustomTheme";
-
-export { VictoryCustomTheme }
+export { default as VictoryCustomTheme } from "./VictoryCustomTheme";
