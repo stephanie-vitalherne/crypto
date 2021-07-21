@@ -101,6 +101,31 @@ const styles = StyleSheet.create({
   changes: {
     ...FONTS.h3,
   },
+  noticeContainer: {
+    marginTop: SIZES.padding,
+    marginHorizontal: SIZES.padding,
+    padding: 20,
+    borderRadius: SIZES.radius,
+    backgroundColor: COLORS.secondary,
+  },
+  noticeTitle: {
+    color: COLORS.white,
+    ...FONTS.h3,
+  },
+  noticeDescription: {
+    marginTop: SIZES.base,
+    color: COLORS.white,
+    lineHeight: 18,
+    ...FONTS.body4,
+  },
+  noticeBtn: {
+    marginTop: SIZES.base,
+  },
+  noticeBtnTxt: {
+    textDecorationLine: "underline",
+    color: COLORS.green,
+    ...FONTS.h3,
+  },
 });
 
 export { styles };

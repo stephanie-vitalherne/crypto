@@ -107,11 +107,30 @@ const Home = ({ navigation }) => {
     return <PriceAlert />;
   }
 
+  function renderNotice() {
+    return (
+      <View style={[styles.noticeContainer, styles.shadow]}>
+        <Text style={styles.noticeTitle}>Investing Safety</Text>
+        <Text style={styles.noticeDescription}>
+          It's very difficult to time an investment, especially when the market
+          is volatile. Learn how to use dollar cost averaging to your advantage.
+        </Text>
+        <TouchableOpacity
+          style={styles.noticeBtn}
+          onPress={() => console.log("Learn More")}
+        >
+          <Text style={styles.noticeBtnTxt}>Learn More</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <ScrollView>
       <View style={styles.mainContainer}>
         {renderHeader()}
         {renderAlert()}
+        {renderNotice()}
       </View>
     </ScrollView>
   );
