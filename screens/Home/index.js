@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,15 +7,23 @@ import {
   FlatList,
   Image,
   ImageBackground,
+  LogBox,
 } from "react-native";
 import { dummyData, COLORS, SIZES, icons, images } from "../../constants";
 import { styles } from "./styles";
 
 // COMPONENTS
-import { PriceAlert } from "../../components";
+import { PriceAlert, TransactionHistory } from "../../components";
 
 const Home = ({ navigation }) => {
   const [trending, setTrending] = useState(dummyData.trendingCurrencies);
+  const [transactionHistory, setTransactionHistory] = useState(
+    dummyData.transactionHistory
+  );
+
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+  }, []);
 
   function renderHeader() {
     const renderItem = ({ item, index }) => (
@@ -24,6 +32,7 @@ const Home = ({ navigation }) => {
           styles.itemContainer,
           { marginLeft: index == 0 ? SIZES.padding : 0 },
         ]}
+        onPress={() => navigation.navigate("CryptoDetail", { currency: item })}
       >
         {/* Currency */}
         <View style={styles.currencyContainer}>
@@ -125,12 +134,22 @@ const Home = ({ navigation }) => {
     );
   }
 
+  function renderTransitionHistory() {
+    return (
+      <TransactionHistory
+        history={transactionHistory}
+        customContainerStyle={styles.shadow}
+      />
+    );
+  }
+
   return (
     <ScrollView>
       <View style={styles.mainContainer}>
         {renderHeader()}
         {renderAlert()}
         {renderNotice()}
+        {renderTransitionHistory()}
       </View>
     </ScrollView>
   );
