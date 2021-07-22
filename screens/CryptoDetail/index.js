@@ -9,7 +9,7 @@ import {
   Animated,
 } from "react-native";
 import { styles } from "./styles";
-import { dummyData, COLORS, SIZES, icons, images } from "../../constants";
+import { dummyData, COLORS, SIZES, icons } from "../../constants";
 import {
   VictoryScatter,
   VictoryLine,
@@ -205,12 +205,49 @@ const CryptoDetail = ({ route, navigation }) => {
     );
   }
 
+  function renderBuy() {
+    return (
+      <View style={[styles.buyContainer, styles.shadow]}>
+        <View style={styles.buyInner}>
+          {/* Currency */}
+          <View style={styles.currBuyContainer}>
+            <CurrencyLabel
+              code={selectedCurrency?.code}
+              icon={selectedCurrency?.image}
+              currency={`${selectedCurrency?.currency} Wallet`}
+            />
+          </View>
+
+          {/* Amount */}
+          <View style={styles.amoBuyContainer}>
+            <View style={styles.amoBuyTxtContainer}>
+              <Text style={styles.amoValue}>
+                ${selectedCurrency?.wallet.value}
+              </Text>
+              <Text style={styles.amoCrypto}>
+                {selectedCurrency?.wallet.crypto} {selectedCurrency?.code}
+              </Text>
+            </View>
+            <Image
+              source={icons.right_arrow}
+              style={styles.arrow}
+              resizeMode="cover"
+            />
+          </View>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <HeaderBar right />
 
       <ScrollView>
-        <View style={styles.chart}>{renderChart()}</View>
+        <View style={styles.chart}>
+          {renderChart()}
+          {renderBuy()}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
