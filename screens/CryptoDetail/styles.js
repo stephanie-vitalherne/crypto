@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
   changes: {
     ...FONTS.body3,
   },
+  headerChartContainer: {
+    marginTop: -25,
+  },
 });
 
 export { styles };

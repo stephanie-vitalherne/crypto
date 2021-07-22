@@ -9,7 +9,7 @@ import {
   Animated,
 } from "react-native";
 import { styles } from "./styles";
-import { dummyData, COLORS, icons, images } from "../../constants";
+import { dummyData, COLORS, SIZES, icons, images } from "../../constants";
 import {
   VictoryScatter,
   VictoryLine,
@@ -57,7 +57,46 @@ const CryptoDetail = ({ route, navigation }) => {
             </Text>
           </View>
         </View>
+
         {/* Chart */}
+        <View style={styles.headerChartContainer}>
+          <VictoryChart
+            theme={VictoryCustomTheme}
+            width={SIZES.width - 40}
+            height={220}
+          >
+            <VictoryLine
+              style={{
+                data: { stroke: COLORS.secondary },
+                parent: { border: "1px solid #ccc" },
+              }}
+              data={selectedCurrency?.chartData}
+              categories={{
+                x: ["15 MIN", "30 MIN", "45 MIN", "60 MIN"],
+                y: ["15", "30", "45"],
+              }}
+            />
+            <VictoryScatter
+              data={selectedCurrency?.chartData}
+              size={7}
+              style={{
+                data: { fill: COLORS.secondary },
+              }}
+            />
+            <VictoryAxis
+              style={{
+                grid: { stroke: "transparent" },
+              }}
+            />
+            <VictoryAxis
+              dependentAxis
+              style={{
+                axis: { stroke: "transparent" },
+                grid: { stroke: "gray" },
+              }}
+            />
+          </VictoryChart>
+        </View>
         {/* Options */}
         {/* Dots */}
       </View>
