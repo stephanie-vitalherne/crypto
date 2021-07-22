@@ -55,6 +55,19 @@ const styles = StyleSheet.create({
   btnLabel: {
     ...FONTS.body5,
   },
+  dotContainer: {
+    height: 30,
+    marginTop: 15,
+  },
+  dots: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  dot: {
+    borderRadius: SIZES.radius,
+    marginHorizontal: 6,
+  },
 });
 
 export { styles };
