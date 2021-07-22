@@ -19,7 +19,12 @@ import {
 import { VictoryCustomTheme } from "../../styles";
 
 // COMPONENTS
-import { HeaderBar, CurrencyLabel, TextButton } from "../../components";
+import {
+  HeaderBar,
+  CurrencyLabel,
+  TextButton,
+  PriceAlert,
+} from "../../components";
 
 const CryptoDetail = ({ route, navigation }) => {
   const scrollX = new Animated.Value(0);
@@ -235,6 +240,27 @@ const CryptoDetail = ({ route, navigation }) => {
             />
           </View>
         </View>
+
+        {/* Button */}
+        <TouchableOpacity
+          style={styles.buyBtn}
+          onPress={() =>
+            navigation.navigate("Transaction", { currency: selectedCurrency })
+          }
+        >
+          <Text style={styles.buyLabel}>Buy</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  function renderAbout() {
+    return (
+      <View style={[styles.abtContainer, styles.shadow]}>
+        <Text style={styles.abtTitle}>About {selectedCurrency?.currency}</Text>
+        <Text style={styles.abtDescription}>
+          {selectedCurrency?.description}
+        </Text>
       </View>
     );
   }
@@ -247,6 +273,8 @@ const CryptoDetail = ({ route, navigation }) => {
         <View style={styles.chart}>
           {renderChart()}
           {renderBuy()}
+          {renderAbout()}
+          <PriceAlert customContainerStyle={styles.price} />
         </View>
       </ScrollView>
     </SafeAreaView>

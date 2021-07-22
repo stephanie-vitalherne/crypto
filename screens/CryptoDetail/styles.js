@@ -103,6 +103,35 @@ const styles = StyleSheet.create({
     height: 20,
     tintColor: COLORS.gray,
   },
+  buyBtn: {
+    height: 45,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: SIZES.radius,
+    backgroundColor: COLORS.green,
+  },
+  buyLabel: {
+    color: COLORS.white,
+    ...FONTS.h3,
+  },
+  abtContainer: {
+    marginTop: SIZES.padding,
+    marginHorizontal: SIZES.radius,
+    padding: SIZES.radius,
+    borderRadius: SIZES.radius,
+    backgroundColor: COLORS.white,
+  },
+  abtTitle: {
+    ...FONTS.h3,
+  },
+  abtDescription: {
+    marginTop: SIZES.base,
+    ...FONTS.body3,
+  },
+  price: {
+    marginTop: SIZES.padding,
+    marginHorizontal: SIZES.radius,
+  },
 });
 
 export { styles };
