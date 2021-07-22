@@ -41,6 +41,20 @@ const styles = StyleSheet.create({
   headerChartContainer: {
     marginTop: -25,
   },
+  btnContainer: {
+    width: "100%",
+    paddingHorizontal: SIZES.padding,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  button: {
+    height: 30,
+    width: 60,
+    borderRadius: 15,
+  },
+  btnLabel: {
+    ...FONTS.body5,
+  },
 });
 
 export { styles };

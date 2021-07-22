@@ -19,15 +19,23 @@ import {
 import { VictoryCustomTheme } from "../../styles";
 
 // COMPONENTS
-import { HeaderBar, CurrencyLabel } from "../../components";
+import { HeaderBar, CurrencyLabel, TextButton } from "../../components";
 
 const CryptoDetail = ({ route, navigation }) => {
+  const scrollX = new Animated.Value(0);
+  const numberOfCharts = [1, 2, 3];
   const [selectedCurrency, setSelectedCurrency] = useState(null);
+  const [chartOptions, setChartOptions] = useState(dummyData.chartOptions);
+  const [selectedOption, setSelectedOption] = useState(chartOptions[0]);
 
   useEffect(() => {
     const { currency } = route.params;
     setSelectedCurrency(currency);
   }, []);
+
+  function optionOnClickHandler(option) {
+    setSelectedOption(option);
+  }
 
   function renderChart() {
     return (
@@ -59,45 +67,95 @@ const CryptoDetail = ({ route, navigation }) => {
         </View>
 
         {/* Chart */}
-        <View style={styles.headerChartContainer}>
-          <VictoryChart
-            theme={VictoryCustomTheme}
-            width={SIZES.width - 40}
-            height={220}
-          >
-            <VictoryLine
-              style={{
-                data: { stroke: COLORS.secondary },
-                parent: { border: "1px solid #ccc" },
-              }}
-              data={selectedCurrency?.chartData}
-              categories={{
-                x: ["15 MIN", "30 MIN", "45 MIN", "60 MIN"],
-                y: ["15", "30", "45"],
-              }}
-            />
-            <VictoryScatter
-              data={selectedCurrency?.chartData}
-              size={7}
-              style={{
-                data: { fill: COLORS.secondary },
-              }}
-            />
-            <VictoryAxis
-              style={{
-                grid: { stroke: "transparent" },
-              }}
-            />
-            <VictoryAxis
-              dependentAxis
-              style={{
-                axis: { stroke: "transparent" },
-                grid: { stroke: "gray" },
-              }}
-            />
-          </VictoryChart>
-        </View>
+        <Animated.ScrollView
+          horizontal
+          pagingEnabled
+          decelerationRate={0}
+          scrollEventThrottle={16}
+          snapToAlignment="center"
+          snapToInterval={SIZES.width - 40}
+          showsHorizontalScrollIndicator={false}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: false }
+          )}
+        >
+          {numberOfCharts.map((item, index) => (
+            <View
+              key={`chart-${index}`}
+              style={{ marginLeft: index == 0 ? SIZES.base : 0 }}
+            >
+              <View style={styles.headerChartContainer}>
+                <VictoryChart
+                  theme={VictoryCustomTheme}
+                  width={SIZES.width - 40}
+                  height={220}
+                >
+                  <VictoryLine
+                    style={{
+                      data: { stroke: COLORS.secondary },
+                      parent: { border: "1px solid #ccc" },
+                    }}
+                    data={selectedCurrency?.chartData}
+                    categories={{
+                      x: ["15 MIN", "30 MIN", "45 MIN", "60 MIN"],
+                      y: ["15", "30", "45"],
+                    }}
+                  />
+                  <VictoryScatter
+                    data={selectedCurrency?.chartData}
+                    size={7}
+                    style={{
+                      data: { fill: COLORS.secondary },
+                    }}
+                  />
+                  <VictoryAxis
+                    style={{
+                      grid: { stroke: "transparent" },
+                    }}
+                  />
+                  <VictoryAxis
+                    dependentAxis
+                    style={{
+                      axis: { stroke: "transparent" },
+                      grid: { stroke: "gray" },
+                    }}
+                  />
+                </VictoryChart>
+              </View>
+            </View>
+          ))}
+        </Animated.ScrollView>
         {/* Options */}
+        <View style={styles.btnContainer}>
+          {chartOptions.map((option) => {
+            return (
+              <TextButton
+                key={`option-${option.id}`}
+                label={option.label}
+                customContainerStyle={[
+                  styles.button,
+                  {
+                    backgroundColor:
+                      selectedOption.id == option.id
+                        ? COLORS.primary
+                        : COLORS.lightGray,
+                  },
+                ]}
+                customLabelStyle={[
+                  styles.btnLabel,
+                  {
+                    color:
+                      selectedOption.id == option.id
+                        ? COLORS.white
+                        : COLORS.gray,
+                  },
+                ]}
+                onPress={() => optionOnClickHandler(option)}
+              />
+            );
+          })}
+        </View>
         {/* Dots */}
       </View>
     );
